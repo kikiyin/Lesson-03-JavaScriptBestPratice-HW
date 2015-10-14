@@ -1,5 +1,5 @@
 'use strict';
-//try
+
 function drawList(listTodoItem) {
   var buffer = document.createDocumentFragment();
   for (var i = 0; i < listTodoItem.length; i++) {
@@ -58,7 +58,7 @@ function fetchData(afterFetch) {
   var xhr = new XMLHttpRequest();
   xhr.open('GET', 'http://127.0.0.1:8000/demo-list.json', true);
   xhr.responseType = 'json';
-  xhr.onreadystatechange = function(e) {
+  xhr.onreadystatechange = (function(e) {
     // Watch out: we have a mysterious unknown 'this'.
     if (this.readyState == 4 && this.status == 200) {
       var listData = this.response;
@@ -67,7 +67,7 @@ function fetchData(afterFetch) {
     } else {
       // We omit the error in this novice's example.
     }
-  };
+  }).bind(xhr.onreadystatechange);//Tier 1 - Bind this
   xhr.send();
 }
 

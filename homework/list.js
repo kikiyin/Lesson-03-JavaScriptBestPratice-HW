@@ -9,11 +9,16 @@ var List = function() {
 var ListNote = new List() ;
 
 List.prototype.start=function() {
+    var f = this.updateList.bind(this);
     
     this.fetchList()
-        .then(function(data){
-            this.updateList(data);
-        }.bind(this))
+        
+        /*.then(function(data){
+        this.updateList(data);
+        }.bind(this))*/
+
+        .then(this.updateList.bind(this))
+        //.then(f)
         .then(this.drawList.bind(this))
         .then(this.preloadFirstNote.bind(this));
         //.then(this.preloadFirstNote().bind(this));
